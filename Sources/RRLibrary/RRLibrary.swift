@@ -1,24 +1,23 @@
 import Foundation
 import WebKit
+import UIKit
 
-public class RRWebView: WKWebView {
-    
-    public init() {
-        let webConfiguration = WKWebViewConfiguration()
-        webConfiguration.preferences.javaScriptEnabled = true
-        super.init(frame: .zero, configuration: webConfiguration)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+class ViewController: UIViewController {
 
-    @discardableResult
-    public func load() -> WKNavigation? {
-        if let url = URL(string:"https://www.google.com") {
-            let req = URLRequest(url: url)
-            return super.load(req)
+    let webView = WKWebView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(webView)
+        guard let url = URL(string :"https://google.co")else{
+            return
         }
-        return nil
+        webView.load(URLRequest(url:url))
+        // Do any additional setup after loading the view.
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        webView.frame = view.bounds
+    }
+
 }
